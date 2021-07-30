@@ -43,6 +43,30 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('My Purchase') }}</div>
+
+                <div class="card-body">
+                    <table class ="table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ( $purchases as $purchase )
+                            <tr>
+                                <td>{{ $purchase -> real_price }}</td>
+                                <td>{{ $purchase -> payment_status }}</td>
+                                <td>{{ $purchase -> price }}</td>
+                                <td><a href="{{ $purchase->payment_link }}" class="btn-btn-success">Bayar Sekarang</a></td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                </div>
+            </div>
+        </div>
     </div>
     <passport-token></passport-token>
 </div>
