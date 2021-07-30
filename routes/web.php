@@ -40,3 +40,7 @@ Route::get('return-url', function(Request $request){
         return 'Please check your response';
     }
 });
+
+Route::get('callback-url', function(Request $request){
+    
+});
