@@ -79,9 +79,26 @@ class PurchaseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Purchase $purchase)
     {
-        //
+        $response = Http::get('https://dev.toyyibpay.com/index.php/api/getBankFPX');
+
+        $fpx_banks = $response->object();
+        return view('purchase.show',compact('purchase','fpx_banks'));
+    }
+
+    public function payBanks(Request $request, Purchase $purchase)
+    {
+        $toyyibpay_secret_key = config('services.toyyibpay.secret');
+
+        $response = Http::asForm()->post('https://dev.toyyibpay.com/index.php/api/runBill',[
+            'userSecretKey' => $toyyibpay_secret_key,
+            'billCode' => $purchase->toyyibpay_bill_code,
+            'billBankID' =>$request->banks,
+        ]);
+
+        echo($response);
+
     }
 
     /**

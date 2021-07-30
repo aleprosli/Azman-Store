@@ -32,6 +32,7 @@
                                         <th>Type</th>
                                         <th>Amount</th>
                                         <th>Action</th>
+                                        <th>Show</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -67,6 +68,7 @@
                                     <td>{{ $purchase -> real_price }}</td>
                                     <td>{{ $purchase -> payment_status }}</td>
                                     <td><a href="{{ $purchase->payment_link }}" class="btn-btn-success">Bayar Sekarang</a></td>
+                                    <td><a href="{{ route('purchase-show', $purchase) }}" class="btn-btn-success">Show Purchase</a></td>
                                 </tr>
                                 @endforeach
                             </tbody>

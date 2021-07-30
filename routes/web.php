@@ -23,6 +23,9 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/purchase/{item}', [App\Http\Controllers\User\PurchaseController::class, 'store'])->name('purchase-store');
+Route::get('/purchases/{purchase}', [App\Http\Controllers\User\PurchaseController::class, 'show'])->name('purchase-show');
+Route::get('/purchases/{purchase}/pay-with-bank', [App\Http\Controllers\User\PurchaseController::class, 'payBanks'])->name('purchase-payBanks');
+
 
 Route::get('return-url', function(Request $request){
     $purchase = App\Models\Purchase::where('toyyibpay_bill_code',$request->billcode)->first();
@@ -58,3 +61,5 @@ Route::get('callback-url', function(Request $request){
         \info(['failed' => 'failed']);
     }
 });
+
+
