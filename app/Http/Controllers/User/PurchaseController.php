@@ -53,7 +53,7 @@ class PurchaseController extends Controller
             'billDescription' => $item->description,
             'billAmount' => $purchase->price,
             'billReturnUrl'=>'http://azman-store.test/return-url/',
-            // 'billCallbackUrl'=>'http://api-training.test/callback-url/',
+            'billCallbackUrl'=>'http://azman-store.test/callback-url/',
             'billExternalReferenceNo' => $purchase->id,
             'billTo'=>auth()->user()->name,
             'billEmail'=>auth()->user()->email,
