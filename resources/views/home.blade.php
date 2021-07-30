@@ -23,7 +23,23 @@
                 <div class="card-header">{{ __('Item') }}</div>
 
                 <div class="card-body">
-                    
+                    <table class ="table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ( $items as $item )
+                            <tr>
+                                <td>{{ $item -> name }}</td>
+                                <td>{{ $item -> description }}</td>
+                                <td>{{ $item -> type }}</td>
+                                <td>{{ $item -> Amount }}</td>
+                                <td><a href="{{ route('purchase-store',$item) }}" class="btn-btn-success">Purchase</a></td>
+                            </tr>
+                            @endforeach
+                        </tbody>
                 </div>
             </div>
         </div>

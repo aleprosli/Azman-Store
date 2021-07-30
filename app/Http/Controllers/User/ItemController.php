@@ -14,7 +14,9 @@ class ItemController extends Controller
      */
     public function index()
     {
-        //
+        $items = Item::all();
+        $purchases = Purchase::all();
+        return view('home', compact('item','purchases'));
     }
 
     /**
