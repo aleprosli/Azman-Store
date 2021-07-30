@@ -28,4 +28,5 @@ class Purchase extends Model
     {
         return 'https://dev.toyyibpay.com/'.$this->toyyibpay_bill_code;
     }
+
 }

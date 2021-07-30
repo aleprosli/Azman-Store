@@ -26,14 +26,14 @@ Route::get('/purchase/{item}', [App\Http\Controllers\User\PurchaseController::cl
 
 Route::get('return-url', function(Request $request){
     $purchase = App\Models\Purchase::where('toyyibpay_bill_code',$request->billcode)->first();
-    if($purchase){
-        if($purchase->id == $request->order_id){
+    if($purchase){ 
+        if($purchase->uuid.$purchase->id == $request->order_id){
             $purchase->update(['payment_status'=>1]);
 
             return "Thank you, Arigatao";
         }
-
-        return'response is not valid';
+        return'try again. Please click here'.$purchase->payment_link;
+       
     }
     else
     {
@@ -42,5 +42,19 @@ Route::get('return-url', function(Request $request){
 });
 
 Route::get('callback-url', function(Request $request){
-    
+    \info(['from payment gateway' => $request->all()]);
+    $purchase = App\Models\Purchase::where('toyyibpay_bill_code',$request->billcode)->first();
+    if($purchase){
+        if($purchase->uuid == $request->order_id){
+            $purchase->update(['payment_status'=>1]);
+
+            \info(['success' => 'update order success']);
+        }
+
+        \info(['failed' => 'respond is not valid']);
+    }
+    else
+    {
+        \info(['failed' => 'failed']);
+    }
 });

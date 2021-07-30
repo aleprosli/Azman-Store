@@ -38,6 +38,8 @@ class PurchaseController extends Controller
      */
     public function store(Request $request, Item $item)
     {
+        $toyyibpay_secret_key = config('services.toyyibpay.secret');
+
         $purchase = Purchase::create([
             'user_id' => auth()->user()->id,
             'item_id' => $item->id,
@@ -47,14 +49,14 @@ class PurchaseController extends Controller
         $url = 'https://dev.toyyibpay.com/index.php/api/createBill';
 
         $body =[
-            'userSecretKey' => 'vhom6diw-637f-ihtz-hj1r-aiy9eegnvoug',
+            'userSecretKey' => $toyyibpay_secret_key,
             'categoryCode' => 'k8sqmgm2',
             'billName' => $item->name,
             'billDescription' => $item->description,
             'billAmount' => $purchase->price,
-            'billReturnUrl'=>'http://azman-store.test/return-url/',
+            'billReturnUrl'=>URL('/return-url'),
             'billCallbackUrl'=>'http://azman-store.test/callback-url/',
-            'billExternalReferenceNo' => $purchase->id,
+            'billExternalReferenceNo' => $purchase->uuid.$purchase->id,
             'billTo'=>auth()->user()->name,
             'billEmail'=>auth()->user()->email,
             'billPriceSetting'=>1,
